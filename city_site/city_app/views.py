@@ -20,4 +20,16 @@ class CityViewSet(viewsets.ModelViewSet):
     filter_backends = [filters.SearchFilter, ]
     search_fields = ['name', ]
 
+    def get_queryset(self):
+        filters = {}
+        qs = self.queryset
+        # self.request.GET is immutable so a copy has to be done to remove empty fields
+        get_instructions = deepcopy(self.request.GET)
+        for key, val in deepcopy(get_instructions).items():
+            if not val:
+                get_instructions.pop(key)
+        for key, value in get_instructions.items():
+            return qs.filter(Q(name__icontains=value) | Q(moderated=False))
+
+
     
