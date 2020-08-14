@@ -6,8 +6,12 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
 from copy import deepcopy
 from django.db.models import Q
-# Create your views here.
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 
+class HomeView(TemplateView):
+    # login_url = '/api-auth/login/'
+    template_name = 'frontend/app.html'
 
 class CityViewSet(viewsets.ModelViewSet):
     """

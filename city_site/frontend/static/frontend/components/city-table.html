@@ -1,0 +1,36 @@
+<section v-bind:class="cities">
+    <div>
+        <h2><span>Affichage des villes</span></h2>
+        <button @click="refresh()" type="submit" class="submit">actualiser</button>
+
+        <h3>Villes</h3>
+        <table class="city-table">
+            <thead>
+                <tr>
+                    <th class="c-name">Nom</th>
+                    <th class="c-dpt"><span>Département</span></th>
+                    <th class="c-reg">Région</th>
+                    <th class="c-pop">Population</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="one-cell" v-if="status == 'retrieved' && !len(cities)"">
+                    <td colspan="4">Aucune ville pour le moment</td>
+                </tr>
+                <tr v-else-if="status == 'retrieving'" class="status loading">
+                    <td colspan="4">
+                        <span>Récupération des villes en cours...</span>
+                    </td>
+                </tr>
+                <tr v-for="city in cities">
+                    <td>{{city.name}</td>
+                    <td>{{city.department}}</span></td>
+                    <td>{{city.region}}</td>
+                    <td>{{city.population}}</td>
+                </tr>
+            </tbody>
+        </table>
+        {{currentView}}
+        <component v-bind:is="'view-city-table'"></component>
+    </div>
+</section>

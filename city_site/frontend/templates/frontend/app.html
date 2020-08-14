@@ -1,0 +1,44 @@
+<html>
+<head>
+    <meta name="viewport">
+    <title>Ville</title>
+    {% load static %}
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="{% static "libs/axios/axios.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "frontend/js/main.js" %}"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h1>Cities</h1>
+            <p>status : <span v-html="status"></span></p>
+            Rechercher : <input type="text" id="search" v-model="search"/><button>!</button>
+            <p>vous cherchez : <span v-html="search"></span></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Population</th>
+                        <th>Code Postaux</th>
+                        <th>Departement</th>
+                        <th>Region</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="city in cities">
+                        <td><span v-html="city.name"></span></td>
+                        <td><span v-html="city.population"></span></td>
+                        <td><ul><li v-for="zip_code in city.zip_code_values" v-html="zip_code"></span></ul></td>
+                        <td><span v-html="city.region"></span></td>
+                        <td><span v-html="city.department"></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        {% load static %}
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script type="text/javascript" src="{% static "libs/axios/axios.min.js" %}"></script>
+        <script type="text/javascript" src="{% static "frontend/js/main.js" %}"></script>
+    </div>
+</body>
+</html>

@@ -21,7 +21,7 @@ class Command(BaseCommand):
             if source_request.status_code is not 200:
                 raise SourceException("request failed %s" % source_request.reason)
             return source_request.json()
-        
+
         with transaction.atomic():
             data = request_endpoint('https://geo.api.gouv.fr/communes')
             for source_city in data:
@@ -37,6 +37,7 @@ class Command(BaseCommand):
                 region, region_created = Region.objects.get_or_create(
                     code=source_city.get('codeRegion'),
                 )
+                # create, request more detail and and saves region
                 if region_created:
                     reg_data = request_endpoint(
                         'https://geo.api.gouv.fr/regions/{code}',
@@ -46,6 +47,7 @@ class Command(BaseCommand):
                     region.save()
                     self.stdout.write(self.style.SUCCESS("created region : " + region.code))
 
+                # create, request more detail and and saves department
                 department, department_created = Department.objects.get_or_create(
                     code=source_city.get('codeDepartement'),
                     region_id=region.id
@@ -66,7 +68,8 @@ class Command(BaseCommand):
                 )
                 if city_created:
                     self.stdout.write(self.style.SUCCESS("created city : " + city.name))
-                    # TODO Bulk create
+                    # better way would be to Bulk create all citie, but city id is needed by
+                    # ManyToManyRelationShip for zip_codes
                     city.save()
 
                 for source_city_code in source_city.get('codesPostaux', []):
