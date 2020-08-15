@@ -21,7 +21,10 @@ class CityViewSet(viewsets.ModelViewSet):
     If you're using format suffixes, make sure to also include
     the `format=None` keyword argument for each action.
     """
-    queryset = City.objects.all()
+    queryset = City.objects.all()\
+                           .select_related('department')\
+                           .select_related('department__region')\
+                           .prefetch_related('zip_codes')
     serializer_class = CitySerializer
     filter_backends = [filters.SearchFilter, ]
     search_fields = ['name', 'zip_codes__value']

@@ -4,7 +4,7 @@ var app = new Vue({
         cities: [],
         status: "retrieving",
         search: "",
-        search_chrono: null
+        selected_city: null
     },
     created: function(){
         this.update_cities();
@@ -27,12 +27,16 @@ var app = new Vue({
             }
             axios.get(url)
             .then((response) => {
-                app.search_chrono = Date.now();
                 app.status = "retrieved";
                 app.cities = response.data.results;
             }, (error) => {
                 console.log(error);
             });
+        },
+        select_city: function(city){
+            console.log(city);
+            this.selected_city = city;
         }
+
     }
 });

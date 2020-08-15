@@ -2,43 +2,71 @@
 <head>
     <meta name="viewport">
     <title>Ville</title>
-    {% load static %}
+    <!-- {% load static %}
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script type="text/javascript" src="{% static "libs/axios/axios.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "frontend/js/main.js" %}"></script>
+    <script type="text/javascript" src="{% static "frontend/js/main.js" %}"></script> -->
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        <div>
-            <h1>Cities</h1>
-            <p>status : <span v-html="status"></span></p>
-            Rechercher : <input type="text" id="search" v-model="search"/><button>!</button>
-            <p>vous cherchez : <span v-html="search"></span></p>
-            <table>
+    
+    <div id="app" class="flex flex-row bg-gray-600">
+        <div class="text-gray-700 text-center bg-gray-100 px-4 py-2 m-2">
+            <h1 class="font-bold text-xl mb-2">Cities</h1>
+            <p class="text-purple-700 text-opacity-50">status : <span v-html="status"></span></p>
+            <label for="search" class="block text-gray-700 text-sm font-bold mb-2"> Rechercher : </label>
+            <input type="text" id="search" v-model="search" class="shadow appearance-none border border-red-500 rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"/>
+            <table class="table-auto">
                 <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Population</th>
-                        <th>Code Postaux</th>
-                        <th>Departement</th>
-                        <th>Region</th>
+                    <tr class="bg-gray-300">
+                        <th class="px-4 py-2">Nom</th>
+                        <th class="px-4 py-2">Population</th>
+                        <th class="px-4 py-2">Code Postaux</th>
+                        <th class="px-4 py-2">Departement</th>
+                        <th class="px-4 py-2">Region</th>
+                        <th class="px-4 py-2">Afficher</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="city in cities">
-                        <td><span v-html="city.name"></span></td>
-                        <td><span v-html="city.population"></span></td>
-                        <td><ul><li v-for="zip_code in city.zip_code_values" v-html="zip_code"></span></ul></td>
-                        <td><span v-html="city.region"></span></td>
-                        <td><span v-html="city.department"></span></td>
+                    <tr v-for="city in cities" class="bg-gray-100">
+                        <td v-if="city.population > 100000" class="border px-4 py-2 bg-green-500"><span v-html="city.name"></span></td>
+                        <td v-else class="border px-4 py-2"><span v-html="city.name"></span></td>
+
+                        <td class="border px-4 py-2"><span v-html="city.population"></span></td>
+                        <td class="border px-4 py-2"><ul><li v-for="zip_code in city.zip_code_values" v-html="zip_code"></span></ul></td>
+                        <td class="border px-4 py-2"><span v-html="city.region"></span></td>
+                        <td class="border px-4 py-2"><span v-html="city.department"></span></td>
+                        <td class="border px-4 py-2"><button v-on:click="select_city(city)" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">-></button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        {% load static %}
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-        <script type="text/javascript" src="{% static "libs/axios/axios.min.js" %}"></script>
-        <script type="text/javascript" src="{% static "frontend/js/main.js" %}"></script>
+        <div v-if="selected_city" class="text-gray-700 text-center bg-gray-100 px-4 py-2 m-2">
+            <h1 class="font-bold text-xl mb-2">Details</h1>
+            <ul class="list">
+                <li>
+                    <label for="nam">nom :</label><br>
+                    <input id="nam" class="border rounded py-2 px-3 mb-3 leading-tight" v-model="selected_city.name"/></li>
+                <li>
+                    <label for="pop">population :</label><br>
+                    <input id="pop" class="border rounded py-2 px-3 mb-3 leading-tight" v-model="selected_city.population"/></li>
+                <li>
+                    <label for="zip">codes postaux :</label><br>
+                    <input id="zip" class="border rounded py-2 px-3 mb-3 leading-tight" v-model="selected_city.zip_code_values"/></li>
+                <li>
+                    <label for="dpt">département :</label><br>
+                    <input id="dpt" class="border rounded py-2 px-3 mb-3 leading-tight" v-model="selected_city.region"/></li>
+                <li>
+                    <label for="reg">région :</label><br>
+                    <input id="reg" class="border rounded py-2 px-3 mb-3 leading-tight" v-model="selected_city.department"/></li>
+            </ul>
+        </div>
+        
+        
     </div>
+    {% load static %}
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script type="text/javascript" src="{% static "libs/axios/axios.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "frontend/js/main.js" %}"></script>
 </body>
 </html>
