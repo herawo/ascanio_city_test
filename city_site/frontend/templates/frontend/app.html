@@ -10,38 +10,39 @@
 </head>
 <body>
     
-    <div id="app" class="flex flex-row bg-gray-600">
-        <div class="text-gray-700 text-center bg-gray-100 px-4 py-2 m-2">
+    <div id="app" class="flex flex-row bg-gray-600" style="width: 100%;">
+        <div class="text-gray-700 text-center bg-gray-100 px-4 py-2 m-2" style="width: 70%;">
             <h1 class="font-bold text-xl mb-2">Cities</h1>
             <p class="text-purple-700 text-opacity-50">status : <span v-html="status"></span></p>
             <label for="search" class="block text-gray-700 text-sm font-bold mb-2"> Rechercher : </label>
             <input type="text" id="search" v-model="search" class="shadow appearance-none border border-red-500 rounded py-2 px-3 mb-3 leading-tight focus:outline-none focus:shadow-outline"/>
-            <table class="table-auto">
-                <thead>
-                    <tr class="bg-gray-300">
-                        <th class="px-4 py-2">Nom</th>
-                        <th class="px-4 py-2">Population</th>
-                        <th class="px-4 py-2">Code Postaux</th>
-                        <th class="px-4 py-2">Departement</th>
-                        <th class="px-4 py-2">Region</th>
-                        <th class="px-4 py-2">Afficher</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="city in cities" class="bg-gray-100">
-                        <td v-if="city.population > 100000" class="border px-4 py-2 bg-green-500"><span v-html="city.name"></span></td>
-                        <td v-else class="border px-4 py-2"><span v-html="city.name"></span></td>
-
-                        <td class="border px-4 py-2"><span v-html="city.population"></span></td>
-                        <td class="border px-4 py-2"><ul><li v-for="zip_code in city.zip_code_values" v-html="zip_code"></span></ul></td>
-                        <td class="border px-4 py-2"><span v-html="city.region"></span></td>
-                        <td class="border px-4 py-2"><span v-html="city.department"></span></td>
-                        <td class="border px-4 py-2"><button v-on:click="select_city(city)" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">-></button></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div>
+                <table class="table-auto">
+                    <thead>
+                        <tr class="bg-gray-300">
+                            <th class="px-4 py-2">Nom</th>
+                            <th class="px-4 py-2">Population</th>
+                            <th class="px-4 py-2">Code Postaux</th>
+                            <th class="px-4 py-2">Departement</th>
+                            <th class="px-4 py-2">Region</th>
+                            <th class="px-4 py-2">Afficher</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="city in cities" class="bg-gray-100">
+                            <td v-if="city.population > 100000" class="border px-4 py-2 bg-green-500"><span v-html="city.name"></span></td>
+                            <td v-else class="border px-4 py-2"><span v-html="city.name"></span></td>
+                            <td class="border px-4 py-2"><span v-html="city.population"></span></td>
+                            <td class="border px-4 py-2"><ul><li v-for="zip_code in city.zip_code_values" v-html="zip_code"></span></ul></td>
+                            <td class="border px-4 py-2"><span v-html="city.region"></span></td>
+                            <td class="border px-4 py-2"><span v-html="city.department"></span></td>
+                            <td class="border px-4 py-2"><button v-on:click="select_city(city)" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">-></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div v-if="selected_city" class="text-gray-700 text-center bg-gray-100 px-4 py-2 m-2">
+        <div v-if="selected_city" class="text-gray-700 text-center bg-gray-100 px-4 py-2 m-2" style="width: 30%;">
             <h1 class="font-bold text-xl mb-2">Details</h1>
             <ul class="list">
                 <li>
@@ -60,6 +61,7 @@
                     <label for="reg">région :</label><br>
                     <input id="reg" class="border rounded py-2 px-3 mb-3 leading-tight" v-model="selected_city.department"/></li>
             </ul>
+            <button v-on:click="send_new_info()" class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">Valider</button>
         </div>
         
         

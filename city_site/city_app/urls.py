@@ -9,4 +9,5 @@ router.register(r'city', CityViewSet, basename='city')
 app_name = 'city_app'
 urlpatterns = [
     path('', include(router.urls)),
+    path('<int:id>', include(router.urls)),
 ]

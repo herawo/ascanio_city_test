@@ -10,7 +10,7 @@ class CitySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = City
-        fields = ['name', 'population', 'zip_code_values', 'region', 'department']
+        fields = ['id', 'name', 'population', 'zip_code_values', 'region', 'department']
 
     def get_zip_code_values(self, instance):
         return [code.value for code in instance.zip_codes.all()]
