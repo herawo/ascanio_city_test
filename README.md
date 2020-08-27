@@ -19,11 +19,11 @@ Test for Ascanio : test for back-end developper, about cities and API in django 
 
 ## URLs
 
-`city_app/` : URL de l'API
-`home/` : URL de la vue listing et edition 
-`admin/` : URL de la partie admin (inutile)
-- username : ascanio_test_admin
-- password par défaut : àChanger! 
+- `city_app/` : URL de l'API
+- `home/` : URL de la vue listing et edition 
+- `admin/` : URL de la partie admin (inutile)
+  - username : ascanio_test_admin
+  - password par défaut : àChanger! 
 
 ## Commande spéciale
 
